@@ -54,9 +54,9 @@ def process_and_predict(image, min_lines, max_angle_var, min_avg_length):
 
 #WEB INTERFACE (by using Streamlit) 
 
-st.set_page_config(page_title="Quality Control Scanner")
-st.title("🔍 Quality Control: Line Analysis")
-st.write("Upload an image to check for anomalies based on line patterns.")
+st.set_page_config(page_title="DETEKTOR TIPE FASE LC NEMATIK")
+st.title("DETEKTOR TIPE FASE ANOMALI PADA LC NEMATIK")
+st.write("Silakan insert gambar fase untuk mendeteksi tipe fase pada LC Nematik dengan penjajaran homeotropik.")
 
 # Sidebar for tuning
 st.sidebar.header("Decision Thresholds")
@@ -64,7 +64,7 @@ m_lines = st.sidebar.slider("Min Lines Required", 1, 20, 3)
 m_var = st.sidebar.slider("Max Angle Variance", 100, 1000, 300)
 m_len = st.sidebar.slider("Min Avg Length", 1, 50, 5)
 
-uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
+uploaded_file = st.file_uploader("Pilih gambar...", type=["jpg", "jpeg", "png"])
 
 if uploaded_file is not None:
     image = Image.open(uploaded_file)
@@ -82,12 +82,13 @@ if uploaded_file is not None:
     if pred == "NORMAL":
         st.success(f"✅ Result: {pred}")
     else:
-        st.error(f"❌ Result: {pred}")
+        st.error(f"✅ Result: {pred}")
         for r in reasons:
-            st.write(f"- {r}")
+            st.write(f"- {b}")
 
     # Show Data Table
     st.table({
         "Feature": ["Lines Detected", "Angle Variance", "Avg Line Length"],
         "Value": [n_lines, f"{a_var:.2f}", f"{a_len:.2f}"]
+
     })
