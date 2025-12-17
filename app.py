@@ -84,7 +84,7 @@ if uploaded_file is not None:
     else:
         st.error(f"✅ Result: {pred}")
         for r in reasons:
-            st.write(f"- {r}")
+            st.markdown(f"<span style='color: blue'>- {r}</span>", unsafe_allow_html=True)
 
     # Show Data Table
     st.table({
@@ -92,6 +92,7 @@ if uploaded_file is not None:
         "Value": [n_lines, f"{a_var:.2f}", f"{a_len:.2f}"]
 
     })
+
 
 
 
