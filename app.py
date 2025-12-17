@@ -43,26 +43,26 @@ def process_and_predict(image, min_lines, max_angle_var, min_avg_length):
     # THE IF-ELSE DECISION RULES
     reasons = []
     if num_lines < min_lines:
-        reasons.append(f"Too few lines ({num_lines})")
+        reasons.append(f"Garis terlalu sedikit ({num_lines})")
     if angle_var > max_angle_var:
-        reasons.append(f"Angles too messy ({angle_var:.1f})")
+        reasons.append(f"Sudut berantakan ({angle_var:.1f})")
     if avg_len < min_avg_length:
-        reasons.append(f"Lines too short ({avg_len:.1f})")
+        reasons.append(f"Garis terlalu pendek ({avg_len:.1f})")
         
-    prediction = "NORMAL" if not reasons else "ANOMALY"
+    prediction = "NORMAL" if not reasons else "ANOMALI"
     return prediction, reasons, num_lines, angle_var, avg_len, thresh
 
 #WEB INTERFACE (by using Streamlit) 
 
 st.set_page_config(page_title="DETEKTOR TIPE FASE LC NEMATIK")
 st.title("DETEKTOR TIPE FASE ANOMALI PADA LC NEMATIK")
-st.write("Silakan insert gambar fase untuk mendeteksi tipe fase pada LC Nematik dengan penjajaran homeotropik.")
+st.write("Silakan masukkan gambar fase untuk mendeteksi tipe fase pada LC Nematik dengan penjajaran homeotropik.")
 
 # Sidebar for tuning
 st.sidebar.header("Decision Thresholds")
-m_lines = st.sidebar.slider("Min Lines Required", 1, 20, 3)
-m_var = st.sidebar.slider("Max Angle Variance", 100, 1000, 300)
-m_len = st.sidebar.slider("Min Avg Length", 1, 50, 5)
+m_lines = st.sidebar.slider("Minimal Kebutuhan Garis", 1, 20, 3)
+m_var = st.sidebar.slider("Maksimal Varians Sudut", 100, 1000, 300)
+m_len = st.sidebar.slider("Minimal Panjang Rata-rata", 1, 50, 5)
 
 uploaded_file = st.file_uploader("Pilih gambar...", type=["jpg", "jpeg", "png"])
 
@@ -88,7 +88,8 @@ if uploaded_file is not None:
 
     # Show Data Table
     st.table({
-        "Feature": ["Lines Detected", "Angle Variance", "Avg Line Length"],
+        "Feature": ["Garis yang terdeteksi", "Varians Sudut", "Minimal Panjang Rata-rata"],
         "Value": [n_lines, f"{a_var:.2f}", f"{a_len:.2f}"]
 
     })
+
